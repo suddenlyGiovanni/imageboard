@@ -17,17 +17,10 @@ const getImages = () => {
 
         .then( ( results ) => {
             // console.log( results );
-            const images = results.rows.map( ( currentObj ) => {
-                return {
-                    id: currentObj.id,
-                    image: s3Url + currentObj.image,
-                    username: currentObj.username,
-                    title: currentObj.title,
-                    description: currentObj.description,
-                    created_at: currentObj.created_at
-                };
+            return results.rows.map( ( currentObj ) => {
+                currentObj.image = s3Url + currentObj.image;
+                return currentObj;
             } );
-            return images;
         } )
 
         .catch( ( err ) => {

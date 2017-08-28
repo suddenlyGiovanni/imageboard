@@ -46,7 +46,7 @@
         render: function () {
             var data = this.model.toJSON();
 
-            var html = Handlebars.templates.images( data );
+            var html = Handlebars.templates.imageBoard( data );
             // console.log(data);
             this.$el.html( html );
 
