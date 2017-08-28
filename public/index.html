@@ -4,25 +4,27 @@
 <head>
     <meta charset="utf-8">
     <title>Image Board</title>
-    <script type="text/javascript" src="/js/handlebars.min.js"></script>
-    <script type="text/javascript" src="/js/jquery-3.1.1.min.js"></script>
-    <script type="text/javascript" src="/js/underscore-min.js"></script>
-    <script type="text/javascript" src="/js/backbone-min.js"></script>
-    <script type="text/javascript" src="/js/script.js"></script>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
     <div id="main"></div>
-    <template id="users">
-    {{title}}
+
+    <template id="images">
         <ul>
-            {{#users}}
-            <li>{{name}}</li>
-            {{/users}}
+            {{#images}}
+            <ul>
+                <li><img src="{{this.image}}" height="200px" width="200px"></li>
+            </ul>
+            {{/images}}
         </ul>
     </template>
 
+    <script type="text/javascript" src="/js/handlebars.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="/js/underscore-min.js"></script>
+    <script type="text/javascript" src="/js/backbone-min.js"></script>
+    <script type="text/javascript" src="/js/script.js"></script>
 </body>
 
 </html>

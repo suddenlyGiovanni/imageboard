@@ -1,19 +1,22 @@
-var express = require( 'express' );
-var path = require( 'path' );
-// var favicon = require( 'serve-favicon' );
-var logger = require( 'morgan' );
-var cookieParser = require( 'cookie-parser' );
-var bodyParser = require( 'body-parser' );
+const express = require( 'express' );
+const path = require( 'path' );
+// const favicon = require( 'serve-favicon' );
+const logger = require( 'morgan' );
+const cookieParser = require( 'cookie-parser' );
+const bodyParser = require( 'body-parser' );
 
-var index = require( './routes/index' );
-var users = require( './routes/users' );
+const index = require( './routes/index' );
+const users = require( './routes/users' );
 
-var app = express();
+
+// EXPRESS
+const app = express();
 
 // view engine setup
 // app.set( 'views', path.join( __dirname, 'views' ) );
 // app.set( 'view engine', 'hbs' );
 
+// BODY PARSER
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use( logger( 'dev' ) );
@@ -22,11 +25,21 @@ app.use( bodyParser.urlencoded( {
     extended: false
 } ) );
 app.use( cookieParser() );
+
+
+// STATIC ASSETS
+// serve to the client (if it requires it) the content of the public folder.
+// to the client this will be the root of the app.
 app.use( express.static( path.join( __dirname, 'public' ) ) );
 
+
+
+// ROUTING _____________________________________________________________________
+//  Connect all our routes to our application
 app.use( '/', index );
 app.use( '/users', users );
 
+// ERROR:
 // catch 404 and forward to error handler
 app.use( function ( req, res, next ) {
     var err = new Error( 'Not Found' );
