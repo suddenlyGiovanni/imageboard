@@ -37,6 +37,7 @@
         initialize: function () {
             // save this as a reference to view obj;
             var view = this;
+
             this.model.on( 'change', function () {
                 view.render();
             } );
@@ -54,13 +55,23 @@
 
     } );
 
-    var homeView = new HomeView( {
-        el: '#main',
-        model: new HomeModel
+
+    // BACKBONE ROUTER
+    var Router = Backbone.Router.extend( {
+
+        routes: {
+            'home': 'home'
+        },
+        home: function () {
+            var homeView = new HomeView( {
+                el: '#main',
+                model: new HomeModel
+            } );
+        }
     } );
 
+    var router = new Router;
 
-
-
+    Backbone.history.start();
 
 }() );
