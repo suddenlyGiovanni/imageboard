@@ -45,9 +45,13 @@
         url: '/api/upload',
 
         save: function () {
+
             var formData = new FormData;
-            formData.append( 'file', this.get( 'file' ) );
+
+            formData.append( 'image', this.get( 'image' ) );
             formData.append( 'title', this.get( 'title' ) );
+            formData.append( 'description', this.get( 'description' ) );
+            formData.append( 'username', this.get( 'username' ) );
 
             var model = this;
 
@@ -106,9 +110,12 @@
 
         events: {
             'click button': function ( e ) {
+                e.preventDefault();
                 this.model.set( {
                     title: this.$el.find( 'input[name="title"]' ).val(),
-                    file: this.$el.find( 'input[name="image"]' ).prop( 'files' )[ 0 ]
+                    image: this.$el.find( 'input[name="image"]' ).prop( 'files' )[ 0 ],
+                    description: this.$el.find( 'textarea[name="description"]' ).val(),
+                    username: this.$el.find( 'input[name="username"]' ).val()
                 } ).save();
             }
         }

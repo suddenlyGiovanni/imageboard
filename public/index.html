@@ -83,10 +83,51 @@
 
 
     <template id="upload">
+        <!-- <form class="">
+            <input type="text" name="title">
+            <input type="file" name="image">
+            <input type="text" name="description">
+            <input type="text" name="username">
+            <button type="button">submit</button>
+        </form> -->
 
-        <input type="text" name="title">
-        <input type="file" name="image">
-        <button>submit</button>
+        <div class="row">
+          <form class="col s12">
+
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="title" class="validate" type="text" name="title">
+                <label for="title">Title</label>
+              </div>
+              <div class="input-field col s6">
+                <input id="username" class="validate" type="text" name="username">
+                <label for="username">Username</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                  <textarea id="description" class="materialize-textarea" name="description"></textarea>
+                  <label for="description">Description</label>
+              </div>
+            </div>
+
+            <div class="row">
+                <div class="file-field input-field">
+                  <div class="btn">
+                    <span>File</span>
+                    <input type="file" name="image">
+                  </div>
+                  <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text">
+                  </div>
+                </div>
+            </div>
+            <button class="btn waves-effect waves-light" type="button" name="action">SEND
+                <i class="material-icons right">check</i>
+            </button>
+          </form>
+        </div>
 
     </template>
 

@@ -1,6 +1,6 @@
-* {
+/** {
     border: thin dotted purple;
-}
+}*/
 
 body {
   display: flex;

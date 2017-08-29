@@ -28,7 +28,23 @@ const getImages = () => {
         } );
 };
 
+const postImage = ( title, description, userName, image ) => {
+    console.log( 'fn: "postImage"' );
+
+    const query = `INSERT INTO images (title, description, userName, image)
+                    VALUES ($1, $2, $3, $4)`;
+    return db.query( query, [
+        title,
+        description,
+        userName,
+        image
+    ] ).then().catch( ( err ) => {
+        console.error( err.stack );
+    } );
+};
+
 
 
 /* MODULE EXPORTS */
 module.exports.getImages = getImages;
+module.exports.postImage = postImage;
