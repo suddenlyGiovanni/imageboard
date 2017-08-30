@@ -1,4 +1,4 @@
-3// /api/
+// /api/
 const router = require( 'express' ).Router();
 const path = require( 'path' );
 const db = require( '../modules/dbQuery' );
@@ -52,7 +52,14 @@ const client = knox.createClient( {
 
 //______________________________________________________________________________
 
-// /api/images
+
+
+
+// API ENDPOINTS:
+
+
+// /api/images _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
 router.get( '/images', ( req, res ) => {
     db.getImages()
         .then( ( results ) => {
@@ -62,9 +69,26 @@ router.get( '/images', ( req, res ) => {
             } );
         } );
 } );
+//_ _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 
-// /api/images
+// /api/image/:id _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+router.get( '/image/:imageId', ( req, res ) => {
+    console.log( 'hit /image/:imageId' );
+    const imageId = req.param( 'imageId' );
+    return db.getImageId( imageId )
+        .then( ( imageIdData ) => {
+            res.json( {
+                image: imageIdData
+            } );
+        } );
+} );
+//_ _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+
+
+// /api/upload _ _  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 router.post( '/upload', uploader.single( 'image' ), ( req, res ) => {
     console.log( req.file );
     // If nothing went wrong the file is already in the uploads directory
@@ -105,7 +129,7 @@ router.post( '/upload', uploader.single( 'image' ), ( req, res ) => {
                         res.json( {
                             success: wasSuccessful
                         } );
-                        fs.unlink(req.file.path, ()=>{});
+                        fs.unlink( req.file.path, () => {} );
                     } );
             }
         } );
@@ -115,6 +139,7 @@ router.post( '/upload', uploader.single( 'image' ), ( req, res ) => {
         } );
     }
 } );
+//_ _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 
 

@@ -56,20 +56,20 @@
                             <span class="card-title activator grey-text text-darken-4">{{this.title}}
                                 <i class="material-icons right">more_vert</i>
                             </span>
-                            <p>by <a href="/#/images/{{this.username}}">{{this.username}}</a></p>
+                            <p>by <a href="/#/images/{{this.imgAuthor}}">{{this.imgAuthor}}</a></p>
                         </div>
 
                         <!-- card action -->
                         <!-- <div class="card-action">
-                          <p>by <a href="/#/images/{{this.username}}">{{this.username}}</a></p>
+                          <p>by <a href="/#/images/{{this.imgAuthor}}">{{this.imgAuthor}}</a></p>
                         </div> -->
 
                         <!-- card reveal -->
                         <div class="card-reveal">
                           <span class="card-title grey-text text-darken-4">{{this.title}}<i class="material-icons right">close</i></span>
                           <p>{{this.description}}</p>
-                          <p>{{this.created_at}}</p>
-                          <p>by <a href="/#/images/{{this.username}}">{{this.username}}</a></p>
+                          <p>{{this.createdAt}}</p>
+                          <p>by <a href="/#/images/{{this.imgAuthor}}">{{this.imgAuthor}}</a></p>
                         </div>
 
 
@@ -83,13 +83,6 @@
 
 
     <template id="upload">
-        <!-- <form class="">
-            <input type="text" name="title">
-            <input type="file" name="image">
-            <input type="text" name="description">
-            <input type="text" name="username">
-            <button type="button">submit</button>
-        </form> -->
 
         <div class="row">
           <form class="col s12">
