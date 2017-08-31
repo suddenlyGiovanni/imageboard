@@ -119,6 +119,7 @@ router.post( '/upload', uploader.single( 'image' ), ( req, res ) => {
             if ( wasSuccessful ) {
                 const title = req.body.title;
                 const description = req.body.description;
+                console.log(req.body.imgAuthor);
                 const imgAuthor = req.body.imgAuthor;
                 const fileName = req.file.filename;
                 db.postImage( title, description, imgAuthor, fileName )

@@ -16,7 +16,7 @@ spiced.UploadImageView = Backbone.View.extend( {
                 title: this.$el.find( 'input[name="title"]' ).val(),
                 image: this.$el.find( 'input[name="image"]' ).prop( 'files' )[ 0 ],
                 description: this.$el.find( 'textarea[name="description"]' ).val(),
-                username: this.$el.find( 'input[name="username"]' ).val()
+                imgAuthor: this.$el.find( 'input[name="imgAuthor"]' ).val()
             } ).save();
         }
     }

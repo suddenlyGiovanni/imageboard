@@ -10,7 +10,7 @@ spiced.UploadImageModel = Backbone.Model.extend( {
         formData.append( 'image', this.get( 'image' ) );
         formData.append( 'title', this.get( 'title' ) );
         formData.append( 'description', this.get( 'description' ) );
-        formData.append( 'username', this.get( 'username' ) );
+        formData.append( 'imgAuthor', this.get( 'imgAuthor' ) );
 
         var model = this;
 
