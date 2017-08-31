@@ -52,9 +52,6 @@ const client = knox.createClient( {
 
 //______________________________________________________________________________
 
-
-
-
 // API ENDPOINTS:
 
 
@@ -72,10 +69,9 @@ router.get( '/images', ( req, res ) => {
 //_ _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 
-// /api/image/:id _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-
-router.get( '/image/:imageId', ( req, res ) => {
-    console.log( 'hit /image/:imageId' );
+// /api/images/:id _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+router.get( '/images/:imageId', ( req, res ) => {
+    console.log( 'hit /images/:imageId' );
     const imageId = req.param( 'imageId' );
     return db.getImageId( imageId )
         .then( ( imageIdData ) => {
@@ -119,16 +115,18 @@ router.post( '/upload', uploader.single( 'image' ), ( req, res ) => {
         s3Request.on( 'response', ( s3Response ) => {
 
             const wasSuccessful = s3Response.statusCode == 200;
+
             if ( wasSuccessful ) {
                 const title = req.body.title;
                 const description = req.body.description;
-                const username = req.body.username;
-                const image = req.file.filename;
-                db.postImage( title, description, username, image )
+                const imgAuthor = req.body.imgAuthor;
+                const fileName = req.file.filename;
+                db.postImage( title, description, imgAuthor, fileName )
                     .then( () => {
                         res.json( {
                             success: wasSuccessful
                         } );
+                        // remove image from server/uploads
                         fs.unlink( req.file.path, () => {} );
                     } );
             }

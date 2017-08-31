@@ -1,7 +1,8 @@
-// IMAGE VIEW_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-spiced.ImageBoardView = Backbone.View.extend( {
+// IMAGESVIEW _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+spiced.ImagesView = Backbone.View.extend( {
 
     initialize: function () {
+        console.log( this.collection );
         // save this as a reference to view obj;
         var view = this;
 
@@ -14,9 +15,8 @@ spiced.ImageBoardView = Backbone.View.extend( {
         // make a shallow copy of the data so that any changes do not reflect to the model
         var data = this.model.toJSON();
 
-        var html = Handlebars.templates.imageBoard( data );
+        var html = Handlebars.templates.imagesView( data );
         // console.log(data);
         this.$el.html( html );
-
     }
 } );

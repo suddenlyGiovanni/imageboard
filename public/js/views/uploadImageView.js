@@ -6,7 +6,7 @@ spiced.UploadImageView = Backbone.View.extend( {
     },
 
     render: function () {
-        this.$el.html( Handlebars.templates.upload( {} ) )
+        this.$el.html( Handlebars.templates.imageUploadView( {} ) )
     },
 
     events: {

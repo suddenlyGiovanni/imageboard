@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS images;
 
 CREATE TABLE images(
     id SERIAL PRIMARY KEY,
-    image VARCHAR(300) NOT NULL,
+    file_name VARCHAR(300) NOT NULL,
     img_author VARCHAR(255) NOT NULL,
     title VARCHAR(255) NOT NULL,
     description TEXT,

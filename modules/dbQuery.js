@@ -11,8 +11,8 @@ const getImages = () => {
 
     console.log( 'fn: "getImages"' );
 
-    const query = `SELECT   id AS imgId,
-                            image,
+    const query = `SELECT   id AS "imgId",
+                            file_name AS "fileName",
                             img_author AS "imgAuthor",
                             title,
                             description,
@@ -24,7 +24,7 @@ const getImages = () => {
         .then( ( results ) => {
             // console.log( results );
             return results.rows.map( ( currentObj ) => {
-                currentObj.image = s3Url + currentObj.image;
+                currentObj.fileName = s3Url + currentObj.fileName;
                 currentObj.createdAt = currentObj.createdAt.toDateString();
                 return currentObj;
             } );
@@ -35,29 +35,13 @@ const getImages = () => {
         } );
 };
 
-// POST a single image_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-const postImage = ( title, description, imgAuthor, image ) => {
-    console.log( 'fn: "postImage"' );
-
-    const query = `INSERT INTO images (title, description, img_author, image)
-                    VALUES ($1, $2, $3, $4)`;
-    return db.query( query, [
-        title,
-        description,
-        imgAuthor,
-        image
-    ] ).then().catch( ( err ) => {
-        console.error( err.stack );
-    } );
-};
-
 // GET a specific image _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 const getImageId = ( imageId ) => {
 
     console.log( 'fn: "getImageId"' );
 
     const query = `SELECT   images.id AS "imageId",
-                    		images.image,
+                    		images.file_name AS "fileName",
                     		images.img_author AS "imgAuthor",
                     		images.title,
                     		images.description,
@@ -77,37 +61,29 @@ const getImageId = ( imageId ) => {
 
             const imageIdData = results.rows;
 
-            console.log( imageIdData );
+            // console.log( imageIdData );
 
-            let newImageData = {};
-
-            function makeNewObj() {
-                newImageData.imageId = imageIdData[ 0 ].imageId;
-                newImageData.image = s3Url + imageIdData[ 0 ].image;
-                newImageData.imgAuthor = imageIdData[ 0 ].imgAuthor;
-                newImageData.title = imageIdData[ 0 ].title;
-                newImageData.description = imageIdData[ 0 ].description;
-                newImageData.comments = [];
-            }
-
-            function makeCommentsArray() {
-                imageIdData.forEach( ( currComment ) => {
-                    newImageData.comments.push( {
-                        commentId: currComment.commentId,
-                        commAuthor: currComment.commAuthor,
-                        comment: currComment.comment,
-                        createdAt: currComment.createdAt.toDateString()
-                    } );
-                } );
-            }
+            const newImageData = {
+                imageId : imageIdData[ 0 ].imageId,
+                fileName : s3Url + imageIdData[ 0 ].fileName,
+                imgAuthor : imageIdData[ 0 ].imgAuthor,
+                title : imageIdData[ 0 ].title,
+                description : imageIdData[ 0 ].description,
+                comments: imageIdData.filter( function ( comment ) {
+                    return comment.commentId;
+                } ).map( function ( comment ) {
+                    return {
+                        commentId: comment.commentId,
+                        commAuthor: comment.commAuthor,
+                        comment: comment.comment,
+                        createdAt: comment.createdAt ? comment.createdAt.toDateString() : null
+                    };
+                } )
+            };
 
 
-            makeNewObj();
-            makeCommentsArray();
-
-            console.log( newImageData );
+            // console.log( newImageData );
             return newImageData;
-            // return imageIdData;
         } )
 
         .catch( ( err ) => {
@@ -117,10 +93,21 @@ const getImageId = ( imageId ) => {
 
 
 
+// POST a single image_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+const postImage = ( title, description, imgAuthor, fileName ) => {
+    console.log( 'fn: "postImage"' );
 
-
-
-
+    const query = `INSERT INTO images (title, description, img_author, file_name)
+                    VALUES ($1, $2, $3, $4)`;
+    return db.query( query, [
+        title,
+        description,
+        imgAuthor,
+        fileName
+    ] ).then().catch( ( err ) => {
+        console.error( err.stack );
+    } );
+};
 
 
 /* MODULE EXPORTS */

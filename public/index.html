@@ -38,8 +38,8 @@
     </footer>
 
     <!-- _TEMPLATES_________________________________________________________ -->
-
-    <template id="imageBoard">
+    <!-- TEMPLATE: IMAGES VIEW -->
+    <template id="imagesView">
 
             <div class="row s12">
                 {{#images}}
@@ -81,8 +81,8 @@
     </template>
 
 
-
-    <template id="upload">
+    <!-- TEMPLATE: IMAGE UPLOAD VIEW -->
+    <template id="imageUploadView">
 
         <div class="row">
           <form class="col s12">
@@ -93,8 +93,8 @@
                 <label for="title">Title</label>
               </div>
               <div class="input-field col s6">
-                <input id="username" class="validate" type="text" name="username">
-                <label for="username">Username</label>
+                <input id="imgAuthor" class="validate" type="text" name="imgAuthor">
+                <label for="imgAuthor">Username</label>
               </div>
             </div>
 
@@ -133,11 +133,15 @@
     <script type="text/javascript" src="/js/lib/underscore-min.js"></script>
     <script type="text/javascript" src="/js/lib/backbone-min.js"></script>
     <script type="text/javascript" src="/js/lib/materialize.min.js"></script>
+    <!-- BK APP -->
     <script type="text/javascript" src="/js/main.js"></script>
-    <script type="text/javascript" src="/js/models/imageBoardModel.js"></script>
+    <!-- BK MODELS -->
+    <script type="text/javascript" src="/js/models/imagesModel.js"></script>
     <script type="text/javascript" src="/js/models/uploadImageModel.js"></script>
-    <script type="text/javascript" src="/js/views/imageBoardView.js"></script>
+    <!-- BK VIEWS -->
+    <script type="text/javascript" src="/js/views/imagesView.js"></script>
     <script type="text/javascript" src="/js/views/uploadImageView.js"></script>
+    <!-- BK ROUTER -->
     <script type="text/javascript" src="/js/router/router.js"></script>
 
 </body>
