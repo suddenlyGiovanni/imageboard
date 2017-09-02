@@ -64,11 +64,11 @@ const getImageId = ( imageId ) => {
             // console.log( imageIdData );
 
             const newImageData = {
-                imageId : imageIdData[ 0 ].imageId,
-                fileName : s3Url + imageIdData[ 0 ].fileName,
-                imgAuthor : imageIdData[ 0 ].imgAuthor,
-                title : imageIdData[ 0 ].title,
-                description : imageIdData[ 0 ].description,
+                imageId: imageIdData[ 0 ].imageId,
+                fileName: s3Url + imageIdData[ 0 ].fileName,
+                imgAuthor: imageIdData[ 0 ].imgAuthor,
+                title: imageIdData[ 0 ].title,
+                description: imageIdData[ 0 ].description,
                 comments: imageIdData.filter( function ( comment ) {
                     return comment.commentId;
                 } ).map( function ( comment ) {
@@ -92,6 +92,33 @@ const getImageId = ( imageId ) => {
 };
 
 
+// POST a comment on an image_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+const postComment = ( imageId, commAuthor, comment ) => {
+    console.log( 'fn: "postComment"' );
+    const query = `INSERT INTO comments (image_id, comm_author, comment)
+                    VALUES ($1, $2, $3)
+                    RETURNING id`;
+    return db.query( query, [
+        imageId,
+        commAuthor,
+        comment
+    ] )
+
+        .then( ( id ) => {
+            if ( id ) {
+                return {
+                    success: true
+                };
+            }
+        } )
+
+        .catch( ( err ) => {
+            console.log( err.stack );
+        } );
+};
+
+
+
 
 // POST a single image_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 const postImage = ( title, description, imgAuthor, fileName ) => {
@@ -104,13 +131,18 @@ const postImage = ( title, description, imgAuthor, fileName ) => {
         description,
         imgAuthor,
         fileName
-    ] ).then().catch( ( err ) => {
-        console.error( err.stack );
-    } );
+    ] )
+
+        .then()
+
+        .catch( ( err ) => {
+            console.error( err.stack );
+        } );
 };
 
 
 /* MODULE EXPORTS */
 module.exports.getImages = getImages;
-module.exports.getImageId = getImageId;
 module.exports.postImage = postImage;
+module.exports.getImageId = getImageId;
+module.exports.postComment = postComment;

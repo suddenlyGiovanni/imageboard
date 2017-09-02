@@ -54,10 +54,10 @@ const client = knox.createClient( {
 
 // API ENDPOINTS:
 
-
+// GET ALL IMAGES:
 // /api/images _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-
 router.get( '/images', ( req, res ) => {
+    console.log( 'API: ', '/api/images' );
     db.getImages()
         .then( ( results ) => {
             // console.log( results );
@@ -69,10 +69,11 @@ router.get( '/images', ( req, res ) => {
 //_ _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 
-// /api/images/:id _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+// GET A SINGLE IMAGE WITH ID
+// /api/images/:id _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 router.get( '/images/:imageId', ( req, res ) => {
-    console.log( 'hit /images/:imageId' );
     const imageId = req.param( 'imageId' );
+    console.log( 'API GET: ', `/api/images/:${imageId}` );
     return db.getImageId( imageId )
         .then( ( imageIdData ) => {
             res.json( {
@@ -82,10 +83,30 @@ router.get( '/images/:imageId', ( req, res ) => {
 } );
 //_ _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
+// POST A COMMENT ON IMAGE WITH ID:
+// /api/images/:id _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+router.post( '/images/:imageId', ( req, res ) => {
+    const imageId = req.param( 'imageId' );
+    const commAuthor = req.body.commAuthor;
+    const comment = req.body.comment;
+    console.log( 'API POST: ', `/api/images/:${imageId}` );
+
+    return db.postComment( imageId, commAuthor, comment )
+        .then( ( success ) => {
+            if (success) {
+                res.json( {
+                    success
+                } );
+            }
+        } );
+} );
 
 
+
+// POST A IMAGE
 // /api/upload _ _  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 router.post( '/upload', uploader.single( 'image' ), ( req, res ) => {
+    console.log( 'API: ', '/api/upload' );
     console.log( req.file );
     // If nothing went wrong the file is already in the uploads directory
     if ( req.file ) {
@@ -117,15 +138,18 @@ router.post( '/upload', uploader.single( 'image' ), ( req, res ) => {
             const wasSuccessful = s3Response.statusCode == 200;
 
             if ( wasSuccessful ) {
+
                 const title = req.body.title;
                 const description = req.body.description;
-                console.log(req.body.imgAuthor);
                 const imgAuthor = req.body.imgAuthor;
                 const fileName = req.file.filename;
-                db.postImage( title, description, imgAuthor, fileName )
+                // console.log( req.body.imgAuthor );
+
+                return db.postImage( title, description, imgAuthor, fileName )
+
                     .then( () => {
                         res.json( {
-                            success: wasSuccessful
+                            success: wasSuccessful  // will convert to true
                         } );
                         // remove image from server/uploads
                         fs.unlink( req.file.path, () => {} );

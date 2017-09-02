@@ -1,6 +1,10 @@
 //  UPLOAD IMAGE MODEL_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 spiced.UploadImageModel = Backbone.Model.extend( {
 
+    initialize: function () {
+        console.log( 'MODEL: ', 'UploadImageModel - has been initialized' );
+    },
+
     url: '/api/upload',
 
     save: function () {
@@ -22,6 +26,9 @@ spiced.UploadImageModel = Backbone.Model.extend( {
             contentType: false, // not set a contentType at all
             success: function () {
                 model.trigger( 'uploadSuccess' );
+                // router.navigate( '/#/', {
+                //     trigger: true
+                // } );
             }
         } );
     }

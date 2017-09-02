@@ -1,4 +1,6 @@
-window.spiced = {};
+window.spiced = {
+    Router: {}
+};
 
 ( function () {
 

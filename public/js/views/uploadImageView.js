@@ -2,6 +2,8 @@
 spiced.UploadImageView = Backbone.View.extend( {
 
     initialize: function () {
+        console.log( 'VIEW: ', 'UploadImageView - has been initialized' );
+        this.listenTo(this.model, 'uploadSuccess', this.clearUploadView);
         this.render();
     },
 
@@ -19,5 +21,12 @@ spiced.UploadImageView = Backbone.View.extend( {
                 imgAuthor: this.$el.find( 'input[name="imgAuthor"]' ).val()
             } ).save();
         }
+    },
+
+    clearUploadView: function() {
+        router.navigate( '/#/', {
+            trigger: true
+        } );
     }
+
 } );

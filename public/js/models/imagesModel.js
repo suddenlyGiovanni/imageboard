@@ -3,7 +3,7 @@ spiced.ImagesModel = Backbone.Model.extend( {
 
     initialize: function () {
 
-        console.log( 'ImageModel has been initialize' );
+        console.log( 'MODEL: ', 'ImagesModel - has been initialized' );
 
         this.fetch( {
 
@@ -15,6 +15,8 @@ spiced.ImagesModel = Backbone.Model.extend( {
                 console.log( 'fetch data from /api/images - ERROR' );
             }
         } );
+
+        console.log( 'MODEL: ', 'ImagesModel: ', this );
     },
 
     url: '/api/images'

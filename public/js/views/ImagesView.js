@@ -2,11 +2,12 @@
 spiced.ImagesView = Backbone.View.extend( {
 
     initialize: function () {
-        console.log( this.collection );
+        console.log( 'VIEW: ', 'ImagesView - has been initialized' );
         // save this as a reference to view obj;
         var view = this;
 
         this.model.on( 'change', function () {
+            console.log('ImagesView - CHANGE EVENT:', this);
             view.render();
         } );
     },
