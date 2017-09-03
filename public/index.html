@@ -63,13 +63,13 @@
 
     <!-- IMAGE VIEW TEMPLATE _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
     <template id="imageTemplate">
-        <img src="{{fileName}}" />
+        <img src="{{imgFilename}}" />
         <ul>
             <li>{{imgId}}</li>
-            <li>{{title}}</li>
+            <li>{{imgTitle}}</li>
             <li>{{imgAuthor}}</li>
-            <li>{{description}}</li>
-            <li>{{createdAt}}</li>
+            <li>{{imgDescription}}</li>
+            <li>{{imgCreatedAt}}</li>
         </ul>
         <button class="delete">Delete</button>
     </template>
@@ -84,11 +84,12 @@
         <!-- SECTION: modal-content -->
         <div class="modal-content">
             <h4>Upload Image</h4>
+            <div id="image-holder" class="responsive-img"></div>
 
             <div class="row">
                 <div class="input-field col s6">
-                    <input id="title" class="validate" type="text" name="title">
-                    <label for="title">Title</label>
+                    <input id="imgTitle" class="validate" type="text" name="imgTitle">
+                    <label for="imgTitle">Title</label>
                 </div>
                 <div class="input-field col s6">
                     <input id="imgAuthor" class="validate" type="text" name="imgAuthor">
@@ -98,8 +99,8 @@
 
             <div class="row">
                 <div class="input-field col s12">
-                    <textarea id="description" class="materialize-textarea" name="description"></textarea>
-                    <label for="description">Description</label>
+                    <textarea id="imgDescription" class="materialize-textarea" name="imgDescription"></textarea>
+                    <label for="imgDescription">Description</label>
                 </div>
             </div>
 
@@ -107,7 +108,7 @@
                 <div class="file-field input-field">
                     <div class="btn">
                         <span>File</span>
-                        <input type="file" name="image">
+                        <input id="fileUpload" type="file" name="imgFilename">
                     </div>
                     <div class="file-path-wrapper">
                         <input class="file-path validate" type="text">

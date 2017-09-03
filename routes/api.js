@@ -51,14 +51,22 @@ const client = knox.createClient( {
 
 
 //______________________________________________________________________________
-
-// API ENDPOINTS:
+/*  API ENDPOINTS:
+    url             HTTP Method  Operation
+    /api/images         GET          Get an array of all images
+    /api/images/:imgId  GET          Get the image with Id of :imgId
+    /api/images         POST         Add a new image and return the image with an imgId attribute added
+    /api/images/:imgId  PUT          Update the image with Id of :imgId
+    /api/images/:imgId  DELETE       Delete the image with Id of :imgId
+*/ // _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 // GET ALL IMAGES:
 // /api/images _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 router.get( '/images', ( req, res ) => {
+
     console.log( 'API: ', '/api/images' );
-    db.getImages()
+
+    return db.getImages()
         .then( ( results ) => {
             // console.log( results );
             res.json( {
@@ -66,47 +74,30 @@ router.get( '/images', ( req, res ) => {
             } );
         } );
 } );
-//_ _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+//_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 
-// GET A SINGLE IMAGE WITH ID
+// GET IMAGE WITH ID
 // /api/images/:id _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-router.get( '/images/:imageId', ( req, res ) => {
-    const imageId = req.param( 'imageId' );
-    console.log( 'API GET: ', `/api/images/:${imageId}` );
-    return db.getImageId( imageId )
-        .then( ( imageIdData ) => {
+router.get( '/images/:imgId', ( req, res ) => {
+
+    const imgId = req.param( 'imgId' );
+    console.log( 'API GET: ', `/api/images/:${imgId}` );
+
+    return db.getImageId( imgId )
+        .then( ( imgIdData ) => {
             res.json( {
-                image: imageIdData
+                image: imgIdData
             } );
         } );
 } );
 //_ _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
-// POST A COMMENT ON IMAGE WITH ID:
-// /api/images/:id _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-router.post( '/images/:imageId', ( req, res ) => {
-    const imageId = req.param( 'imageId' );
-    const commAuthor = req.body.commAuthor;
-    const comment = req.body.comment;
-    console.log( 'API POST: ', `/api/images/:${imageId}` );
-
-    return db.postComment( imageId, commAuthor, comment )
-        .then( ( success ) => {
-            if (success) {
-                res.json( {
-                    success
-                } );
-            }
-        } );
-} );
-
-
 
 // POST A IMAGE
-// /api/upload _ _  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-router.post( '/upload', uploader.single( 'image' ), ( req, res ) => {
-    console.log( 'API: ', '/api/upload' );
+// /api/images _ _  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+router.post( '/images', uploader.single( 'image' ), ( req, res ) => {
+    console.log( 'API: ', '/api/images' );
     console.log( req.file );
     // If nothing went wrong the file is already in the uploads directory
     if ( req.file ) {
@@ -139,17 +130,17 @@ router.post( '/upload', uploader.single( 'image' ), ( req, res ) => {
 
             if ( wasSuccessful ) {
 
-                const title = req.body.title;
-                const description = req.body.description;
+                const imgTitle = req.body.imgTitle;
+                const imgDescription = req.body.imgDescription;
                 const imgAuthor = req.body.imgAuthor;
-                const fileName = req.file.filename;
-                // console.log( req.body.imgAuthor );
+                const imgFilename = req.file.filename;
 
-                return db.postImage( title, description, imgAuthor, fileName )
+                return db.postImage( imgFilename, imgAuthor, imgTitle, imgDescription )
 
-                    .then( () => {
+                    .then( ( imgIdData ) => {
                         res.json( {
-                            success: wasSuccessful  // will convert to true
+                            success: wasSuccessful, // will convert to true
+                            image: imgIdData
                         } );
                         // remove image from server/uploads
                         fs.unlink( req.file.path, () => {} );
@@ -163,6 +154,32 @@ router.post( '/upload', uploader.single( 'image' ), ( req, res ) => {
     }
 } );
 //_ _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+
+
+
+
+
+
+// POST A COMMENT ON IMAGE WITH ID:
+// /api/images/:id _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+router.post( '/images/:imgId', ( req, res ) => {
+    const imgId = req.param( 'imgId' );
+    const comAuthor = req.body.comAuthor;
+    const comText = req.body.comText;
+    console.log( 'API POST: ', `/api/images/:${imgId}` );
+
+    return db.postComment( imgId, comAuthor, comText )
+        .then( ( success ) => {
+            if ( success ) {
+                res.json( {
+                    success
+                } );
+            }
+        } );
+} );
+
+
 
 
 

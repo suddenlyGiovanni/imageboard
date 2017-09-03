@@ -12,11 +12,11 @@ const getImages = () => {
     console.log( 'fn: "getImages"' );
 
     const query = `SELECT   id AS "imgId",
-                            file_name AS "fileName",
+                            img_filename AS "imgFilename",
                             img_author AS "imgAuthor",
-                            title,
-                            description,
-                            created_at AS "createdAt"
+                            img_title AS "imgTitle",
+                            img_description AS "imgDescription",
+                            img_created_at AS "imgCreatedAt"
                     FROM images`;
 
     return db.query( query )
@@ -24,8 +24,8 @@ const getImages = () => {
         .then( ( results ) => {
             // console.log( results );
             return results.rows.map( ( currentObj ) => {
-                currentObj.fileName = s3Url + currentObj.fileName;
-                currentObj.createdAt = currentObj.createdAt.toDateString();
+                currentObj.imgFilename = s3Url + currentObj.imgFilename;
+                currentObj.imgCreatedAt = currentObj.imgCreatedAt.toDateString();
                 return currentObj;
             } );
         } )
@@ -40,50 +40,82 @@ const getImageId = ( imageId ) => {
 
     console.log( 'fn: "getImageId"' );
 
-    const query = `SELECT   images.id AS "imageId",
-                    		images.file_name AS "fileName",
+    const query = `SELECT   images.id AS "imgId",
+                    		images.img_filename AS "imgFilename",
                     		images.img_author AS "imgAuthor",
-                    		images.title,
-                    		images.description,
-                    		comments.id AS "commentId",
-                    		comments.comm_author AS "commAuthor",
-                    		comments.comment,
-                    		comments.created_at AS "createdAt"
+                    		images.img_title AS "imgTitle",
+                    		images.img_description AS "imgDescription",
+                    		comments.id AS "comId",
+                    		comments.com_author AS "comAuthor",
+                    		comments.com_text AS "comText",
+                    		comments.com_created_at AS "comCreatedAt"
                     FROM images
                     LEFT JOIN comments
-                    ON images.id = comments.image_id
+                    ON images.id = comments.img_id
                     WHERE images.id = $1
-                    ORDER BY comments.created_at DESC NULLS LAST;`;
+                    ORDER BY comments.com_created_at DESC NULLS LAST;`;
 
     return db.query( query, [ imageId ] )
 
         .then( ( results ) => {
 
-            const imageIdData = results.rows;
+            const imgIdData = results.rows;
 
             // console.log( imageIdData );
 
-            const newImageData = {
-                imageId: imageIdData[ 0 ].imageId,
-                fileName: s3Url + imageIdData[ 0 ].fileName,
-                imgAuthor: imageIdData[ 0 ].imgAuthor,
-                title: imageIdData[ 0 ].title,
-                description: imageIdData[ 0 ].description,
-                comments: imageIdData.filter( function ( comment ) {
+            const newImgData = {
+                imgId: imgIdData[ 0 ].imgId,
+                imgFilename: s3Url + imgIdData[ 0 ].imgFilename,
+                imgAuthor: imgIdData[ 0 ].imgAuthor,
+                imgTitle: imgIdData[ 0 ].imgTitle,
+                imgDescription: imgIdData[ 0 ].imgDescription,
+                comments: imgIdData.filter( function ( comment ) {
                     return comment.commentId;
                 } ).map( function ( comment ) {
                     return {
-                        commentId: comment.commentId,
-                        commAuthor: comment.commAuthor,
-                        comment: comment.comment,
-                        createdAt: comment.createdAt ? comment.createdAt.toDateString() : null
+                        comId: comment.comId,
+                        comAuthor: comment.comAuthor,
+                        comText: comment.comText,
+                        comCreatedAt: comment.comCreatedAt ? comment.comCreatedAt.toDateString() : null
                     };
                 } )
             };
 
 
-            // console.log( newImageData );
-            return newImageData;
+            // console.log( newImgData );
+            return newImgData;
+        } )
+
+        .catch( ( err ) => {
+            console.error( err.stack );
+        } );
+};
+
+
+// POST a single image_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+const postImage = ( imgFilename, imgAuthor, imgTitle, imgDescription ) => {
+    console.log( 'fn: "postImage"' );
+
+    const query = `INSERT INTO images (img_filename, img_author, img_title, img_description  )
+                    VALUES ($1, $2, $3, $4)
+                    RETURNING id AS "imgId",
+                    	img_filename AS "imgFilename",
+                    	img_author AS "imgAuthor",
+                    	img_title AS "imgTitle",
+                    	img_description AS "imgDescription",
+                    	img_created_at AS "imgCreatedAt"`;
+    return db.query( query, [
+        imgFilename,
+        imgAuthor,
+        imgTitle,
+        imgDescription,
+    ] )
+
+        .then( ( results ) => {
+            const imgIdData = results.rows[ 0 ];
+            imgIdData.imgFilename = s3Url + imgIdData.imgFilename;
+            imgIdData.imgCreatedAt = imgIdData.imgCreatedAt.toDateString();
+            return imgIdData;
         } )
 
         .catch( ( err ) => {
@@ -93,15 +125,15 @@ const getImageId = ( imageId ) => {
 
 
 // POST a comment on an image_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-const postComment = ( imageId, commAuthor, comment ) => {
+const postComment = ( imgId, comAuthor, comText ) => {
     console.log( 'fn: "postComment"' );
-    const query = `INSERT INTO comments (image_id, comm_author, comment)
+    const query = `INSERT INTO comments (img_id, com_author, com_text)
                     VALUES ($1, $2, $3)
                     RETURNING id`;
     return db.query( query, [
-        imageId,
-        commAuthor,
-        comment
+        imgId,
+        comAuthor,
+        comText
     ] )
 
         .then( ( id ) => {
@@ -114,29 +146,6 @@ const postComment = ( imageId, commAuthor, comment ) => {
 
         .catch( ( err ) => {
             console.log( err.stack );
-        } );
-};
-
-
-
-
-// POST a single image_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-const postImage = ( title, description, imgAuthor, fileName ) => {
-    console.log( 'fn: "postImage"' );
-
-    const query = `INSERT INTO images (title, description, img_author, file_name)
-                    VALUES ($1, $2, $3, $4)`;
-    return db.query( query, [
-        title,
-        description,
-        imgAuthor,
-        fileName
-    ] )
-
-        .then()
-
-        .catch( ( err ) => {
-            console.error( err.stack );
         } );
 };
 

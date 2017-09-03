@@ -45,47 +45,47 @@ app.Router = Backbone.Router.extend( {
 
         {
             imgId: 0,
-            fileName: 'https://placeimg.com/400/300/tech/grayscale',
-            title: 'Title 0',
+            imgFilename: 'https://placeimg.com/400/300/tech/grayscale',
+            imgTitle: 'Title 0',
             imgAuthor: 'Author 0',
-            description: 'Lorem Ipsum 0',
-            createdAt: '00 00 0000'
+            imgDescription: 'Lorem Ipsum 0',
+            imgCreatedAt: '00 00 0000'
         },
 
         {
             imgId: 1,
-            fileName: 'https://placeimg.com/400/300/tech/grayscale',
-            title: 'Title 1',
+            imgFilename: 'https://placeimg.com/400/300/tech/grayscale',
+            imgTitle: 'Title 1',
             imgAuthor: 'Author 1',
-            description: 'Lorem Ipsum 1',
-            createdAt: '11 11 1111'
+            imgDescription: 'Lorem Ipsum 1',
+            imgCreatedAt: '11 11 1111'
         },
 
         {
             imgId: 2,
-            fileName: 'https://placeimg.com/400/300/tech/grayscale',
-            title: 'Title 2',
+            imgFilename: 'https://placeimg.com/400/300/tech/grayscale',
+            imgTitle: 'Title 2',
             imgAuthor: 'Author 2',
-            description: 'Lorem Ipsum 2',
-            createdAt: '22 22 2222'
+            imgDescription: 'Lorem Ipsum 2',
+            imgCreatedAt: '22 22 2222'
         },
 
         {
             imgId: 3,
-            fileName: 'https://placeimg.com/400/300/tech/grayscale',
-            title: 'Title 3',
+            imgFilename: 'https://placeimg.com/400/300/tech/grayscale',
+            imgTitle: 'Title 3',
             imgAuthor: 'Author 3',
-            description: 'Lorem Ipsum 3',
-            createdAt: '33 33 3333'
+            imgDescription: 'Lorem Ipsum 3',
+            imgCreatedAt: '33 33 3333'
         },
 
         {
             imgId: 4,
-            fileName: 'https://placeimg.com/400/300/tech/grayscale',
-            title: 'Title 4',
+            imgFilename: 'https://placeimg.com/400/300/tech/grayscale',
+            imgTitle: 'Title 4',
             imgAuthor: 'Author 4',
-            description: 'Lorem Ipsum 4',
-            createdAt: '44 44 4444'
+            imgDescription: 'Lorem Ipsum 4',
+            imgCreatedAt: '44 44 4444'
         },
     ]
 
