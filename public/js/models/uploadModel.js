@@ -3,10 +3,11 @@
 var app = app || {};
 
 // Define a UPLOAD Model
+// TODO: SWITCH TO USING THE IMAGES COLLECTION INSTEAD
 
-app.UploadModel = Backbone.Model.extend({
+app.UploadModel = Backbone.Model.extend( {
 
-    url: '/api/upload',
+    url: '/api/images',
 
     // Called when the model is first created
     initialize: function () {
@@ -15,12 +16,26 @@ app.UploadModel = Backbone.Model.extend({
 
     save: function () {
 
+        console.log( 'fn: save' );
+
         var formData = new FormData;
 
-        formData.append( 'image', this.get( 'image' ) );
-        formData.append( 'title', this.get( 'title' ) );
-        formData.append( 'description', this.get( 'description' ) );
-        formData.append( 'imgAuthor', this.get( 'imgAuthor' ) );
+        var imgFilename = this.get( 'imgFilename' );
+        var imgTitle = this.get( 'imgTitle' );
+        var imgDescription = this.get( 'imgDescription' );
+        var imgAuthor = this.get( 'imgAuthor' );
+
+        console.log( 'fn: save - imgFilename: ', imgFilename );
+        console.log( 'fn: save - imgTitle: ', imgTitle );
+        console.log( 'fn: save - imgDescription: ', imgDescription );
+        console.log( 'fn: save - imgAuthor: ', imgAuthor );
+
+        formData.append( 'imgFilename', imgFilename );
+        formData.append( 'imgTitle', imgTitle );
+        formData.append( 'imgDescription', imgDescription );
+        formData.append( 'imgAuthor', imgAuthor );
+
+        // console.log(formData.imgFilename);
 
         var model = this;
 
@@ -32,11 +47,8 @@ app.UploadModel = Backbone.Model.extend({
             contentType: false, // not set a contentType at all
             success: function () {
                 model.trigger( 'uploadSuccess' );
-                // router.navigate( '/#/', {
-                //     trigger: true
-                // } );
             }
         } );
     }
 
-});
+} );

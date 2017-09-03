@@ -65,6 +65,10 @@ app.UploadView = Backbone.View.extend( {
     postForm: function ( e ) {
         console.log( 'fn: postForm - FIRED' );
         e.preventDefault();
+
+        // log the file'property
+        console.log(this.$el.find( 'input[name="imgFilename"]' ).prop( 'files' )[ 0 ]);
+
         this.model.set({
             imgTitle: this.$el.find( 'input[name="imgTitle"]' ).val(),
             imgFilename: this.$el.find( 'input[name="imgFilename"]' ).prop( 'files' )[ 0 ],

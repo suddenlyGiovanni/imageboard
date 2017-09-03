@@ -17,7 +17,7 @@ app.PortfolioCollection = Backbone.Collection.extend( {
         /api/images/:id  DELETE       Delete the image with id of :id
     */
 
-    // Called when the model is first created
+    // Called when the Collection is first created
     initialize: function() {
         console.log('COLLECTION: ', 'PortfolioCollection - has been initialized' );
     }
