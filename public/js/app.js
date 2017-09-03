@@ -26,60 +26,23 @@ $( function () {
         oldSetElement.call( this, el );
     }
     // _________________________________________________________________________
-
-    $( document ).ready( function () {
-        // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
-        $( '.modal' ).modal();
+    // Backbone.trigger('event'); // logs: Handled Backbone event
+    Backbone.on( 'uploadImageView:open', function () {
+        console.log( 'uploadImageView:open' );
+        this.view = new app.UploadView;
     } );
 
-    var images = [
 
-        {
-            imgId: 0,
-            fileName: 'https://placeimg.com/400/300/tech/grayscale',
-            title: 'Title 0',
-            imgAuthor: 'Author 0',
-            description: 'Lorem Ipsum 0',
-            createdAt: '00 00 0000'
-        },
+    // MATERIALIZE elements Initialization:
 
-        {
-            imgId: 1,
-            fileName: 'https://placeimg.com/400/300/tech/grayscale',
-            title: 'Title 1',
-            imgAuthor: 'Author 1',
-            description: 'Lorem Ipsum 1',
-            createdAt: '11 11 1111'
-        },
+    // MODAL WINDOWS
+    // jQuery Plugin Initialization
+    // To open a modal using a trigger:
+    // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+    // $( '.modal' ).modal();
 
-        {
-            imgId: 2,
-            fileName: 'https://placeimg.com/400/300/tech/grayscale',
-            title: 'Title 2',
-            imgAuthor: 'Author 2',
-            description: 'Lorem Ipsum 2',
-            createdAt: '22 22 2222'
-        },
+    // new app.AppView(app.AppModel);
 
-        {
-            imgId: 3,
-            fileName: 'https://placeimg.com/400/300/tech/grayscale',
-            title: 'Title 3',
-            imgAuthor: 'Author 3',
-            description: 'Lorem Ipsum 3',
-            createdAt: '33 33 3333'
-        },
-
-        {
-            imgId: 4,
-            fileName: 'https://placeimg.com/400/300/tech/grayscale',
-            title: 'Title 4',
-            imgAuthor: 'Author 4',
-            description: 'Lorem Ipsum 4',
-            createdAt: '44 44 4444'
-        },
-    ];
-
-    new app.ImageBoardView( images );
+    // new app.PortfolioView( images );
 
 } );

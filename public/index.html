@@ -14,76 +14,54 @@
     <link rel="stylesheet" href="/css/style.css" />
 </head>
 
-<body>
-    <!-- HEADRER____________________________________________________________ -->
+<body id="appViewContainer">
+
+    <!-- HEADRER________________________________________________________ -->
     <header>
         <nav>
             <div class="nav-wrapper">
                 <a href="#" class="brand-logo">Image Board</a>
-                <a class="btn-floating btn-large halfway-fab waves-effect waves-light btn teal" href="#modal1">
+                <!-- <a id="btnModal" class="btn-floating btn-large halfway-fab waves-effect waves-light teal modal-trigger" data-target="modalContainer"> -->
+                <a id="btnModal" class="btn-floating btn-large halfway-fab waves-effect waves-light teal modal-trigger" data-target="modalContainer">
                     <i class="material-icons">add</i>
                 </a>
+
             </div>
         </nav>
-
-
-
-        <div id="books">
-            <form id="addBook" action="#">
-                <div>
-                    <label for="coverImage">CoverImage: </label><input id="coverImage" type="file" />
-                    <label for="title">Title: </label><input id="title" type="text" />
-                    <label for="author">Author: </label><input id="author" type="text" />
-                    <label for="releaseDate">Release date: </label><input id="releaseDate" type="text" />
-                    <label for="keywords">Keywords: </label><input id="keywords" type="text" />
-                    <button id="add">Add</button>
-                </div>
-            </form>
-        </div>
     </header>
 
-    <!-- MAIN_______________________________________________________________ -->
+    <!-- Modal Structure -->
+    <div id="modalContainer" class="modal modal-fixed-footer">
+    </div>
+
+    <!-- MAIN___________________________________________________________ -->
 
     <!-- Page Content goes here -->
     <div id="main" class="container">
-        <div id="ImageBoard">
-
-
-
-            <div class="imageContainer">
-                <img src="https://placeimg.com/400/300/tech/grayscale" />
-                <ul>
-                    <li>0</li>
-                    <li>No title</li>
-                    <li>Unknown</li>
-                    <li>No description</li>
-                    <li>No date</li>
-                </ul>
-                <button class="delete">Delete</button>
-            </div>
-
-
-        </div>
+        <div id="imageBoard"></div>
     </div>
 
-    <!-- Modal Structure -->
-    <div id="modal1" class="modal modal-fixed-footer">
-      <div class="modal-content">
-        <h4>Modal Header</h4>
-        <p>A bunch of text</p>
-      </div>
-      <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
-      </div>
-    </div>
 
-    <!-- _FOOTER____________________________________________________________ -->
+<!-- _FOOTER________________________________________________________________ -->
 
     <footer>
     </footer>
 
-    <!-- _TEMPLATES_________________________________________________________ -->
+<!-- _______________________________________________________________________ -->
 
+
+
+
+<!-- _TEMPLATES_____________________________________________________________ -->
+
+    <!-- APP VIEW TEMPLATE _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+    <template id="appTemplate"></template>
+
+    <!-- _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+
+
+
+    <!-- IMAGE VIEW TEMPLATE _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
     <template id="imageTemplate">
         <img src="{{fileName}}" />
         <ul>
@@ -95,6 +73,60 @@
         </ul>
         <button class="delete">Delete</button>
     </template>
+    <!-- _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+
+
+
+
+    <!-- UPLOAD VIEW TEMPLATE _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _  -->
+    <template id="uploadTemplates">
+
+        <!-- SECTION: modal-content -->
+        <div class="modal-content">
+            <h4>Upload Image</h4>
+
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="title" class="validate" type="text" name="title">
+                    <label for="title">Title</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="imgAuthor" class="validate" type="text" name="imgAuthor">
+                    <label for="imgAuthor">Author</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <textarea id="description" class="materialize-textarea" name="description"></textarea>
+                    <label for="description">Description</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="file-field input-field">
+                    <div class="btn">
+                        <span>File</span>
+                        <input type="file" name="image">
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- SECTION: modal-footer -->
+        <div class="modal-footer">
+            <!-- <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a> -->
+            <button id="add" class="btn waves-effect waves-light" type="button" name="action">ADD
+                <i class="material-icons right">check</i>
+            </button>
+        </div>
+
+    </template>
+    <!-- _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
 
 
 
@@ -107,16 +139,31 @@
     <script type="text/javascript" src="/js/lib/backbone-min.js"></script>
     <script type="text/javascript" src="/js/lib/materialize.min.js"></script>
 
-    <!-- BK IMAGE -->
-    <script type="text/javascript" src="/js/models/image.js"></script>
-    <script type="text/javascript" src="/js/views/image.js"></script>
-
-    <!-- BK IMAGE BOARD-->
-    <script type="text/javascript" src="/js/collections/portfolio.js"></script>
-    <script type="text/javascript" src="/js/views/imageBoard.js"></script>
+    <!-- BK APP.JS-->
+    <script type="text/javascript" src="/js/app.js"></script>
 
     <!-- BK APP -->
-    <script type="text/javascript" src="/js/app.js"></script>
+    <!-- <script type="text/javascript" src="/js/models/appModel.js"></script>
+    <script type="text/javascript" src="/js/views/appView.js"></script> -->
+
+    <!-- BK IMAGE -->
+    <script type="text/javascript" src="/js/models/imageModel.js"></script>
+    <script type="text/javascript" src="/js/views/imageView.js"></script>
+
+    <!-- BK IMAGE BOARD-->
+    <script type="text/javascript" src="/js/collections/portfolioCollection.js"></script>
+    <script type="text/javascript" src="/js/views/portfolioView.js"></script>
+
+    <!-- BK UPLOAD IMAGE -->
+    <script type="text/javascript" src="/js/models/uploadModel.js"></script>
+    <script type="text/javascript" src="/js/views/uploadView.js"></script>
+
+    <!-- BK ROUTER -->
+    <script type="text/javascript" src="/js/router/router.js"></script>
+
+    <!-- JQ SCRIPT -->
+    <script type="text/javascript" src="/js/script.js"></script>
+
 </body>
 
 </html>
