@@ -25,10 +25,10 @@ app.UploadModel = Backbone.Model.extend( {
         var imgDescription = this.get( 'imgDescription' );
         var imgAuthor = this.get( 'imgAuthor' );
 
-        console.log( 'fn: save - imgFilename: ', imgFilename );
-        console.log( 'fn: save - imgTitle: ', imgTitle );
-        console.log( 'fn: save - imgDescription: ', imgDescription );
-        console.log( 'fn: save - imgAuthor: ', imgAuthor );
+        // console.log( 'fn: save - imgFilename: ', imgFilename );
+        // console.log( 'fn: save - imgTitle: ', imgTitle );
+        // console.log( 'fn: save - imgDescription: ', imgDescription );
+        // console.log( 'fn: save - imgAuthor: ', imgAuthor );
 
         formData.append( 'imgFilename', imgFilename );
         formData.append( 'imgTitle', imgTitle );

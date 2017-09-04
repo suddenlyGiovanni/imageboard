@@ -6,6 +6,7 @@ var app = app || {};
 app.UploadView = Backbone.View.extend( {
     el: '#modalContainer',
     model: app.UploadModel,
+    // collection: app.PortfolioCollection,
 
     tagName: 'form',
     className: 'col s12 formUpload',
@@ -68,6 +69,14 @@ app.UploadView = Backbone.View.extend( {
 
         // log the file'property
         // console.log(this.$el.find( 'input[name="imgFilename"]' ).prop( 'files' )[ 0 ]);
+        // var formData = {
+        //     imgTitle: this.$el.find( 'input[name="imgTitle"]' ).val(),
+        //     // imgFilename: this.$el.find( 'input[name="imgFilename"]' ).prop( 'files' )[ 0 ],
+        //     imgDescription: this.$el.find( 'textarea[name="imgDescription"]' ).val(),
+        //     imgAuthor: this.$el.find( 'input[name="imgAuthor"]' ).val()
+        // };
+
+
 
         this.model.set({
             imgTitle: this.$el.find( 'input[name="imgTitle"]' ).val(),
@@ -75,6 +84,10 @@ app.UploadView = Backbone.View.extend( {
             imgDescription: this.$el.find( 'textarea[name="imgDescription"]' ).val(),
             imgAuthor: this.$el.find( 'input[name="imgAuthor"]' ).val()
         }).save();
+        // console.log('formData: ', formData);
+        // console.log("this.collection: ", this.collection);
+        // this.collection.add(new app.ImageModel(formData));
+
     },
 
     clearUploadView: function() {

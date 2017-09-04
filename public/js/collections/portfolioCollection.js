@@ -18,8 +18,21 @@ app.PortfolioCollection = Backbone.Collection.extend( {
     */
 
     // Called when the Collection is first created
-    initialize: function() {
-        console.log('COLLECTION: ', 'PortfolioCollection - has been initialized' );
+    initialize: function () {
+        console.log( 'COLLECTION: ', 'PortfolioCollection - has been initialized' );
+
+        this.fetch( {
+
+            success: function () {
+                console.log( 'COLLECTION: ', 'PortfolioCollection - fetch data from /api/images - SUCCESFULY' );
+            },
+
+            error: function () {
+                console.log( 'COLLECTION: ', 'PortfolioCollection - fetch data from /api/images - ERROR' );
+            }
+        } );
+
+
     }
 
 } );

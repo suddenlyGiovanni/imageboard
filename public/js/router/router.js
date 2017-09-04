@@ -20,14 +20,15 @@ app.Router = Backbone.Router.extend( {
     portfolioView: function () {
         console.log( 'ROUTER: ', 'fn: portfolioView' );
 
-        // var portfolioCollection = new app.PortfolioCollection;
-        // console.log( 'ROUTER: ', 'fn: portfolioView - portfolioCollection = ', portfolioCollection );
-        // this.view = new app.PortfolioView( {
-        //     el: '#imageBoard',
-        //     collection: portfolioCollection
-        // } );
+        var portfolioCollection = new app.PortfolioCollection;
+        console.log( 'ROUTER: ', 'fn: portfolioView - portfolioCollection = ', portfolioCollection );
 
-        this.view = new app.PortfolioView( this.images );
+        this.view = new app.PortfolioView( {
+            el: '#imageBoard',
+            collection: portfolioCollection
+        } );
+
+        // this.view = new app.PortfolioView( this.images );
 
     },
 

@@ -31,6 +31,7 @@ app.PortfolioView = Backbone.View.extend( {
         this.listenTo( this.collection, 'add', this.renderImage ),
 
         this.collection.on( 'change', function () {
+            console.log('this.collection: ', this.collection);
             console.log( 'PortfolioCollection - CHANGE EVENT:', view );
             view.render();
             return view;
@@ -43,6 +44,7 @@ app.PortfolioView = Backbone.View.extend( {
     // RENDER _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
     // render PortfolioCollection by rendering each image in its collection
     render: function () {
+        console.log('VIEW: ', 'PortfolioView - fn: render()');
         this.collection.each( function ( item ) {
             this.renderImage( item );
         }, this );
@@ -51,6 +53,7 @@ app.PortfolioView = Backbone.View.extend( {
     // RENDER A IMAGE by creating a ImageView and appending the
     // element it renders to the PortfolioCollection's element
     renderImage: function ( item ) {
+        console.log('VIEW: ', 'PortfolioView - fn: renderImage() - ',  item);
         // Instantiate the imageView with Image Model
         var imageView = new app.ImageView( {
             model: item

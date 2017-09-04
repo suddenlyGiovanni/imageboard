@@ -29,7 +29,7 @@ $( function () {
     // Backbone.trigger('event'); // logs: Handled Backbone event
     Backbone.on( 'uploadImageView:open', function () {
         console.log( 'uploadImageView:open' );
-        this.view = new app.UploadView;
+        this.view = new app.UploadView();
     } );
 
 

@@ -7,6 +7,7 @@ app.ImageModel = Backbone.Model.extend( {
 
     // idAttribute is the identifying attribute name of the model returned from the server
     idAttribute: 'imgId',
+    url: '/api/images',
 
     // Called when the model is first created
     initialize: function () {
