@@ -18,7 +18,7 @@ app.UploadModel = Backbone.Model.extend( {
 
         console.log( 'fn: save' );
 
-        var formData = new FormData;
+        var formData = new FormData();
 
         var imgFilename = this.get( 'imgFilename' );
         var imgTitle = this.get( 'imgTitle' );
@@ -35,13 +35,16 @@ app.UploadModel = Backbone.Model.extend( {
         formData.append( 'imgDescription', imgDescription );
         formData.append( 'imgAuthor', imgAuthor );
 
-        // console.log(formData.imgFilename);
+        console.log('formData: ', formData);
 
         var model = this;
+
+        console.log('log this.model: ', model);
 
         $.ajax( {
             url: this.url,
             method: 'POST',
+            // data: model,
             data: formData,
             processData: false,
             contentType: false, // not set a contentType at all

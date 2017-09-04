@@ -96,7 +96,7 @@ router.get( '/images/:imgId', ( req, res ) => {
 
 // POST A IMAGE
 // /api/images _ _  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-router.post( '/images', uploader.single( 'image' ), ( req, res ) => {
+router.post( '/images', uploader.single( 'imgFilename' ), ( req, res ) => {
     console.log( 'API: ', '/api/images' );
     console.log( req.file );
     // If nothing went wrong the file is already in the uploads directory

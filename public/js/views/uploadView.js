@@ -29,7 +29,7 @@ app.UploadView = Backbone.View.extend( {
     render: function () {
         // make a shallow copy of the data so that any changes do not reflect to the model
         var data = this.model.toJSON();
-        console.log( data );
+        // console.log( data );
         // this.el is what we defined in tagName. use $el to get access to jQuery html() function
         // this.$el.html( this.template( this.model.attributes ) );§
         this.$el.html( this.template( data ) );
@@ -67,7 +67,7 @@ app.UploadView = Backbone.View.extend( {
         e.preventDefault();
 
         // log the file'property
-        console.log(this.$el.find( 'input[name="imgFilename"]' ).prop( 'files' )[ 0 ]);
+        // console.log(this.$el.find( 'input[name="imgFilename"]' ).prop( 'files' )[ 0 ]);
 
         this.model.set({
             imgTitle: this.$el.find( 'input[name="imgTitle"]' ).val(),
