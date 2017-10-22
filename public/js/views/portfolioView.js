@@ -23,12 +23,15 @@ app.PortfolioView = Backbone.View.extend( {
         var view = this;
 
         this.collection = new app.PortfolioCollection( initialImages );
+        this.collection.fetch({reset: true})
         console.log( 'VIEW: ', 'PortfolioView - PortfolioCollection: ', this.collection );
         this.render();
 
         // EVENT listeners:
 
+        this.listenTo( this.collection, 'reset', this.render ),
         this.listenTo( this.collection, 'add', this.renderImage ),
+
 
         this.collection.on( 'change', function () {
             console.log('this.collection: ', this.collection);
