@@ -1,7 +1,7 @@
 # Imageboard
 An app that allows users to upload images, comment, and like images.
 ## Context
-Between July and October 2017, I attend **[Spiced Academy]**, an intensive 12-week coding program focused on Full Stack JavaScript Web Development in Berlin.
+Between July and October 2017, I attend **[SPICED Academy]**, an intensive 12-week coding program focused on Full Stack JavaScript Web Development in Berlin.
 During this program, I built a portfolio of web applications.
 1. **[Reichstag]** - a static landing page
 2. **[Kitty Carousel]** - a carousel/slideshow element that displays kitties picture
@@ -27,7 +27,7 @@ MIT © [suddenlyGiovanni]
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
 
-   [Spiced Academy]: <https://www.spiced-academy.com/>
+   [SPICED Academy]: <https://www.spiced-academy.com/>
    [suddenlyGiovanni]: <https://github.com/suddenlyGiovanni/>
    [/giovanni-ravalico]: <https://www.linkedin.com/in/giovanni-ravalico/>
    [@superspacezova]: <https://twitter.com/superspacezova>
